@@ -5,9 +5,7 @@ function CadastroVideo() {
   return (
     <>
       <h1>Cadastro de Video</h1>
-      <Link to="/cadastro/categoria">
-        <h2>Cadastrar categoria</h2>
-      </Link>
+      <Link to="/cadastro/categoria">Cadastrar categoria</Link>
     </>
   );
 }
