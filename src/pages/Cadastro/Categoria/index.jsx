@@ -1,13 +1,31 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import FormField from '../../../components/FormField';
 
 function CadastroCategoria() {
-  const [categoria, setCategoria] = useState('');
+  const valoresIniciais = {
+    nome: '',
+    description: '',
+    cor: '',
+  };
+  const [categorias, setCategorias] = useState([]);
+  const [values, setValues] = useState(valoresIniciais);
+
+  function setValue(chave, valor) {
+    setValues({
+      ...values,
+      [chave]: valor,
+    });
+  }
+
+  function handleChange(e) {
+    setValue(e.target.getAttribute('name'), e.target.value);
+  }
 
   function handleSubmit(e) {
     e.preventDefault();
-    console.log('Categoria: ' + categoria);
-    setCategoria('');
+    setCategorias([...categorias, values]);
+    setValues(valoresIniciais);
   }
 
   return (
@@ -15,14 +33,34 @@ function CadastroCategoria() {
       <h1>Cadastro de Categorias</h1>
       <Link to="/">Home</Link>
       <form onSubmit={handleSubmit}>
-        <label>Nome da Categoria</label>
-        <input
-          onChange={(e) => setCategoria(e.target.value)}
+        <FormField
+          label="Nome da Categoria"
+          name="nome"
+          onChange={handleChange}
           type="text"
-          value={categoria}
+          value={values.nome}
+        />
+        <FormField
+          label="Descrição"
+          name="descricao"
+          onChange={handleChange}
+          value={values.descricao}
+        />
+        <FormField
+          label="Cor"
+          name="cor"
+          onChange={handleChange}
+          type="color"
+          value={values.cor}
         />
         <button>Cadastrar</button>
       </form>
+
+      <ul>
+        {categorias.map((categoria, index) => {
+          return <li key={index}>{categoria.nome}</li>;
+        })}
+      </ul>
     </>
   );
 }
