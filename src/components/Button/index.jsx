@@ -1,12 +1,13 @@
 import './styles';
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 function Button(props) {
-  const { href, className, children } = props;
+  const { to, className, children } = props;
   return (
-    <a href={href} className={className} props={props}>
+    <Link to={to} className={className} props={props}>
       {children}
-    </a>
+    </Link>
   );
 }
 

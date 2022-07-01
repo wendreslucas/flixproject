@@ -16,12 +16,17 @@
   --backEnd: #00c86f;
 }
 
+body {
+  --bodyPaddingTop: 94px;
+}
+
 a {
   color: inherit;
 }
 
 #root {
   min-height: calc(100vh - var(--bodyPaddingTop));
+  background: orange;
   display: flex;
   flex-direction: column;
 }
