@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import FormField from '../../../components/FormField';
+import { api } from './../../../services/api';
 
 function CadastroCategoria() {
   const valoresIniciais = {
@@ -28,10 +29,17 @@ function CadastroCategoria() {
     setValues(valoresIniciais);
   }
 
+  useEffect(() => {
+    api.get('/categorias').then((res) => {
+      setCategorias(res.data);
+      console.log(categorias);
+    });
+  }, []);
+
   return (
     <>
       <h1>Cadastro de Categorias</h1>
-      <Link to="/">Home</Link>
+
       <form onSubmit={handleSubmit}>
         <FormField
           label="Nome da Categoria"
@@ -59,9 +67,11 @@ function CadastroCategoria() {
 
       <ul>
         {categorias.map((categoria, index) => (
-          <li key={index}>{categoria.nome}</li>
+          <li key={index}>{categoria.titulo}</li>
         ))}
       </ul>
+
+      <Link to="/">Home</Link>
     </>
   );
 }
