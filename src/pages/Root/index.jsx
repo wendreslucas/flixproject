@@ -1,6 +1,5 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-
 import DefaultLayout from '../../components/DefaultLayout';
 import CadastroCategoria from '../Cadastro/Categoria';
 import CadastroVideo from '../Cadastro/Video';
