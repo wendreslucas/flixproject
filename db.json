@@ -55,7 +55,6 @@
       "titulo": "SEO com React",
       "url": "https://www.youtube.com/watch?v=c8mVlakBESE"
     },
-
     {
       "id": 3,
       "categoriaId": 1,
@@ -187,6 +186,18 @@
       "categoriaId": 5,
       "titulo": "Resident Evil 8",
       "url": "https://www.youtube.com/watch?v=JSapXD9vxYA"
+    },
+    {
+      "titulo": "Titulo padrão",
+      "url": "https://youtu.be/MPoVCO5na3Q",
+      "categoria": "Front End",
+      "id": 25,
+      "categoriaId": 1
+    },
+    {
+      "titulo": "Titulo padrão 2",
+      "url": "https://youtu.be/MPoVCO5na3Q",
+      "id": 26
     }
   ]
 }
