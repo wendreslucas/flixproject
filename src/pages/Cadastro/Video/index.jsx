@@ -1,46 +1,63 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import FormField from './../../../components/FormField/index';
 import useForm from './../../../hooks/useForm';
 import videosRepository from '../../../repositories/videos';
+import categoriasRepository from '../../../repositories/categorias';
 
 function CadastroVideo() {
   const navigate = useNavigate();
-  const { handleChange, values } = useForm({
-    titulo: 'Titulo padrão',
-    url: 'https://youtu.be/MPoVCO5na3Q',
-    categoria: 'Front End',
-  });
+  const [categorias, setCategorias] = useState([]);
+  const categoryTitles = categorias.map(({ titulo }) => titulo);
+  const { handleChange, values } = useForm({});
 
   function handleSubmit(e) {
     e.preventDefault();
-    videosRepository.createVideo(values);
+
+    const categoriaEscolhida = categorias.find((categoria) => {
+      return categoria.titulo === values.categoria;
+    });
+
+    console.log('categoriaEscolhida', categoriaEscolhida);
+
+    videosRepository.createVideo({
+      titulo: values.titulo,
+      url: values.url,
+      categoriaId: 2,
+    });
+    navigate('/');
   }
+
+  useEffect(() => {
+    categoriasRepository.getAll().then((categoriasFromServer) => {
+      setCategorias(categoriasFromServer);
+    });
+  }, []);
 
   return (
     <>
       <h1>Cadastro de Video</h1>
       <form onSubmit={handleSubmit}>
         <FormField
-          value={values.titulo}
           onChange={handleChange}
+          type="text"
           label="Titulo"
           name="titulo"
-          type="text"
+          value={values.titulo}
         />
         <FormField
-          value={values.url}
           onChange={handleChange}
+          type="text"
           label="URL"
           name="url"
-          type="text"
+          value={values.url}
         />
         <FormField
-          value={values.categoria}
           onChange={handleChange}
           label="Categoria"
-          name="Categoria"
-          type="option"
+          name="categoria"
+          suggestions={categoryTitles}
+          value={values.categoria}
         />
 
         <button type="submit">Cadastrar</button>

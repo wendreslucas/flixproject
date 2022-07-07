@@ -10,7 +10,9 @@ const createVideo = async (values) => {
   try {
     await api.post('/videos', video);
     toast.success('Video cadastrado com sucesso!');
-  } catch (error) {}
+  } catch (error) {
+    toast.error('Ops! Algo deu errado');
+  }
 };
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {

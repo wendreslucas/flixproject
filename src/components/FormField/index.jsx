@@ -74,22 +74,39 @@ const Input = styled.input`
 `;
 
 function FormField(props) {
-  const { label, name, onChange, type, value } = props;
-
+  const { label, name, onChange, suggestions, type, value } = props;
+  const fieldId = `id_${name}`;
   const isTypeTextArea = type === 'textarea';
   const tag = isTypeTextArea ? 'textarea' : 'input';
+  const hasSuggestion = Boolean(suggestions);
 
   return (
     <Container>
       <Label>
         <Input
           as={tag}
+          autoComplete="off"
+          id={fieldId}
+          list={hasSuggestion ? `suggestionFor_${fieldId}` : undefined}
           name={name}
           onChange={onChange}
+          // autoComplete={hasSuggestion ? 'off' : 'on'}
           type={type}
           value={value}
         />
-        <Label.Text>{label}:</Label.Text>
+        <Label.Text>{label}</Label.Text>
+        {hasSuggestion && (
+          <datalist id={`suggestionFor_${fieldId}`}>
+            {suggestions.map((suggestion) => (
+              <option
+                key={`suggestionFor_${fieldId}_option${suggestion}`}
+                value={suggestion}
+              >
+                {suggestion}
+              </option>
+            ))}
+          </datalist>
+        )}
       </Label>
     </Container>
   );
